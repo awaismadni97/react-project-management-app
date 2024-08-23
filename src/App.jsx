@@ -60,9 +60,11 @@ function App() {
       return {
         ...prevState,
         selectedProjectId: undefined,
-        projects: [...prevState.projects.filter(
-          (projectItem) => projectItem.id !== prevState.selectedProjectId
-        )],
+        projects: [
+          ...prevState.projects.filter(
+            (projectItem) => projectItem.id !== prevState.selectedProjectId
+          ),
+        ],
       };
     });
   }
@@ -71,7 +73,9 @@ function App() {
     (projectItem) => projectItem.id === projectsState.selectedProjectId
   );
 
-  let content = <SelectedProject project={selectedProject} onDelete={handleDeleteProject} />;
+  let content = (
+    <SelectedProject project={selectedProject} onDelete={handleDeleteProject} />
+  );
 
   if (projectsState.selectedProjectId === null) {
     content = (
