@@ -55,9 +55,23 @@ function App() {
     });
   }
 
-  const selectedProject = projectsState.projects.find(projectItem => projectItem.id === projectsState.selectedProjectId);
+  function handleDeleteProject() {
+    setProjectsState((prevState) => {
+      return {
+        ...prevState,
+        selectedProjectId: undefined,
+        projects: [...prevState.projects.filter(
+          (projectItem) => projectItem.id !== prevState.selectedProjectId
+        )],
+      };
+    });
+  }
 
-  let content = <SelectedProject project={selectedProject} />;
+  const selectedProject = projectsState.projects.find(
+    (projectItem) => projectItem.id === projectsState.selectedProjectId
+  );
+
+  let content = <SelectedProject project={selectedProject} onDelete={handleDeleteProject} />;
 
   if (projectsState.selectedProjectId === null) {
     content = (
@@ -74,7 +88,7 @@ function App() {
       <ProjectsSideBar
         onStartAddingProject={handleStartAddingProject}
         projects={projectsState.projects}
-        onSelectProject= {handleSelectProject}
+        onSelectProject={handleSelectProject}
       />
       {content}
     </main>
